@@ -19,7 +19,7 @@ namespace Train.PlayerController
         [SerializeField, Range(1f, 10f)] private float m_boostSpeedMultiplier;
 
         // movement
-        private static readonly Plane m_playerLevel = new(Vector3.up, 0f);
+        private static Plane m_playerLevel = new(Vector3.up, 0f);
         private Vector2 m_mousePos;
         private Vector3 m_targetPos;
         private float m_currentSpeed;
@@ -33,6 +33,11 @@ namespace Train.PlayerController
 
         public event System.Action OnBeginBoosting;
         public event System.Action OnEndBoosting;
+
+        private void Awake()
+        {
+            m_playerLevel = new Plane(Vector3.up, -transform.position.y);
+        }
 
         private void LateUpdate()
         {
