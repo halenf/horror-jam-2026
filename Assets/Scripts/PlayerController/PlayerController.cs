@@ -10,16 +10,20 @@ namespace Train.PlayerController
         [SerializeField] private Camera m_camera;
 
         [Header("Camera")]
-        [SerializeField] private Vector3 m_cameraOffset = new(0, 9.5f, -3f);
+        [SerializeField] private Vector3 m_cameraOffset = new(0f, 9.5f, -3f);
+        [SerializeField] private Vector3 m_cameraEulerRotation = new(80f, 0f, 0f);
 
         [Header("Movement")]
         [SerializeField, Min(0f)] private float m_moveSpeed;
+
+        [Header("Turning")]
+        [SerializeField, Range(0f, 360f)] private float m_maxTurningSpeed;
 
         [Header("Boost")]
         [SerializeField, Range(1f, 10f)] private float m_boostSpeedMultiplier;
 
         // movement
-        private static readonly Plane m_playerLevel = new(Vector3.up, 0f);
+        private static Plane m_playerLevel = new(Vector3.up, 0f);
         private Vector2 m_mousePos;
         private Vector3 m_targetPos;
         private float m_currentSpeed;
@@ -33,6 +37,12 @@ namespace Train.PlayerController
 
         public event System.Action OnBeginBoosting;
         public event System.Action OnEndBoosting;
+
+        private void Awake()
+        {
+            m_playerLevel = new Plane(Vector3.up, -transform.position.y);
+            m_camera.transform.rotation = Quaternion.Euler(m_cameraEulerRotation);
+        }
 
         private void LateUpdate()
         {
@@ -59,6 +69,7 @@ namespace Train.PlayerController
             m_rb.linearVelocity = velocity;
 
             // turn towards target
+            //Vector3.smoo
             transform.forward = dirToTarget;
         }
 
