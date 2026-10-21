@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Train.PlayerController
+namespace Train.Player
 {
     public class PlayerController : MonoBehaviour
     {
@@ -31,10 +31,12 @@ namespace Train.PlayerController
         // boosting
         private bool m_isBoosting = false;
 
+        // movement properties
         public float CurrentSpeed => m_currentSpeed;
         public float MoveSpeed => m_moveSpeed;
         public float BoostSpeed => m_moveSpeed * m_boostSpeedMultiplier;
 
+        // events
         public event System.Action OnBeginBoosting;
         public event System.Action OnEndBoosting;
 

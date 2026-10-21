@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
-namespace Train.PlayerController
+namespace Train.Player
 {
     public class TrainHornPlayer : MonoBehaviour
     {

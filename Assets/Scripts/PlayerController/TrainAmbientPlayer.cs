@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Train.PlayerController
+namespace Train.Player
 {
     public class TrainAmbientPlayer : MonoBehaviour
     {
