@@ -4,7 +4,7 @@ using UnityEngine.Audio;
 
 namespace Train.Player
 {
-    public class TrainAmbientPlayer : MonoBehaviour
+    public class TrainHeartbeatPlayer : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private PlayerController m_player;

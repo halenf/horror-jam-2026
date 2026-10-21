@@ -17,7 +17,7 @@ namespace Train.Player
         [SerializeField, Min(0f)] private float m_moveSpeed;
 
         [Header("Turning")]
-        [SerializeField, Range(0f, 360f)] private float m_maxTurningSpeed;
+        [SerializeField] private float m_maxTurnSpeed;
 
         [Header("Boost")]
         [SerializeField, Range(1f, 10f)] private float m_boostSpeedMultiplier;
@@ -60,19 +60,17 @@ namespace Train.Player
                 m_targetPos = ray.GetPoint(enter);
             }
 
-            // move by transform
-            //Vector3 newPos = Vector3.MoveTowards(m_rb.position, m_targetPos, m_moveSpeed * Time.fixedDeltaTime);
-            //m_rb.MovePosition(newPos);
-
-            // move by velocity
+            // get target direction
             Vector3 dirToTarget = (m_targetPos - m_rb.position).normalized;
-            m_currentSpeed = m_moveSpeed * (m_isBoosting ? m_boostSpeedMultiplier : 1f);
-            Vector3 velocity = m_currentSpeed * dirToTarget;
-            m_rb.linearVelocity = velocity;
 
-            // turn towards target
-            //Vector3.smoo
-            transform.forward = dirToTarget;
+            // Rotate with max turn speed
+            transform.rotation = Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirToTarget), m_maxTurnSpeed * Time.fixedDeltaTime);
+
+            // move in forward direction
+            m_currentSpeed = m_moveSpeed * (m_isBoosting ? m_boostSpeedMultiplier : 1f);
+            Vector3 velocity = m_currentSpeed * transform.forward;
+            m_rb.linearVelocity = velocity;
+            
         }
 
         public void OnMouseMove(InputAction.CallbackContext context)
@@ -82,7 +80,7 @@ namespace Train.Player
 
         public void OnPress(InputAction.CallbackContext context)
         {
-            if (context.started)
+            if (context.performed)
             {
                 m_isBoosting = true;
                 OnBeginBoosting.Invoke();

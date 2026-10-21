@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 3097863468497011799}
   - component: {fileID: 8809399342217044977}
   - component: {fileID: 5279017762473815532}
-  - component: {fileID: 1133690439631659231}
+  - component: {fileID: 276812999829083971}
   - component: {fileID: 2028908664258537994}
   m_Layer: 0
   m_Name: Player
@@ -451,7 +451,9 @@ MonoBehaviour:
   m_rb: {fileID: 5279017762473815532}
   m_camera: {fileID: 0}
   m_cameraOffset: {x: 0, y: 9.5, z: -1.6}
+  m_cameraEulerRotation: {x: 80, y: 0, z: 0}
   m_moveSpeed: 5
+  m_maxTurnSpeed: 150
   m_boostSpeedMultiplier: 2
 --- !u!54 &5279017762473815532
 Rigidbody:
@@ -480,14 +482,14 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!65 &1133690439631659231
-BoxCollider:
+--- !u!136 &276812999829083971
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6264451350252123162}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 23c80281e14f68a4ba6ce15f2609960e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -498,8 +500,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1.5
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2028908664258537994
 MonoBehaviour:
@@ -607,7 +611,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3097863468497011799}
