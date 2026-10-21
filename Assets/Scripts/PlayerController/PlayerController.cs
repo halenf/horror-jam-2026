@@ -14,16 +14,18 @@ namespace Train.Player
         [SerializeField] private Vector3 m_cameraEulerRotation = new(80f, 0f, 0f);
 
         [Header("Movement")]
-        [SerializeField, Min(0f)] private float m_moveSpeed;
+        [SerializeField, Min(0f)] private float m_moveSpeed = 5f;
 
         [Header("Turning")]
         [SerializeField] private float m_maxTurnSpeed;
 
         [Header("Boost")]
-        [SerializeField, Range(1f, 10f)] private float m_boostSpeedMultiplier;
+        [SerializeField, Min(0f)] private float m_boostSpeed = 10f;
+        [SerializeField, Min(0f)] private float m_boostAcceleration;
+        [SerializeField, Min(0f)] private float m_boostDeceleration;
 
         // movement
-        private static Plane m_playerLevel = new(Vector3.up, 0f);
+        private Plane m_playerLevel;
         private Vector2 m_mousePos;
         private Vector3 m_targetPos;
         private float m_currentSpeed;
@@ -34,7 +36,7 @@ namespace Train.Player
         // movement properties
         public float CurrentSpeed => m_currentSpeed;
         public float MoveSpeed => m_moveSpeed;
-        public float BoostSpeed => m_moveSpeed * m_boostSpeedMultiplier;
+        public float BoostSpeed => m_boostSpeed;
 
         // events
         public event System.Action OnBeginBoosting;
@@ -64,10 +66,18 @@ namespace Train.Player
             Vector3 dirToTarget = (m_targetPos - m_rb.position).normalized;
 
             // Rotate with max turn speed
-            transform.rotation = Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirToTarget), m_maxTurnSpeed * Time.fixedDeltaTime);
+            if (dirToTarget != Vector3.zero)
+                transform.rotation = Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirToTarget), m_maxTurnSpeed * Time.fixedDeltaTime);
 
             // move in forward direction
-            m_currentSpeed = m_moveSpeed * (m_isBoosting ? m_boostSpeedMultiplier : 1f);
+            if (m_isBoosting)
+            {
+                m_currentSpeed = Mathf.Min(m_currentSpeed + m_boostAcceleration * Time.fixedDeltaTime, m_boostSpeed);
+            }
+            else
+            {
+                m_currentSpeed = Mathf.Max(m_currentSpeed - m_boostDeceleration * Time.fixedDeltaTime, m_moveSpeed);
+            }
             Vector3 velocity = m_currentSpeed * transform.forward;
             m_rb.linearVelocity = velocity;
             

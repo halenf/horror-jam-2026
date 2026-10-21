@@ -454,7 +454,9 @@ MonoBehaviour:
   m_cameraEulerRotation: {x: 80, y: 0, z: 0}
   m_moveSpeed: 5
   m_maxTurnSpeed: 150
-  m_boostSpeedMultiplier: 2
+  m_boostSpeed: 10
+  m_boostAcceleration: 10
+  m_boostDeceleration: 20
 --- !u!54 &5279017762473815532
 Rigidbody:
   m_ObjectHideFlags: 0
