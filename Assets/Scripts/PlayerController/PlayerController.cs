@@ -22,9 +22,17 @@ namespace Train.PlayerController
         private static readonly Plane m_playerLevel = new(Vector3.up, 0f);
         private Vector2 m_mousePos;
         private Vector3 m_targetPos;
+        private float m_currentSpeed;
 
         // boosting
         private bool m_isBoosting = false;
+
+        public float CurrentSpeed => m_currentSpeed;
+        public float MoveSpeed => m_moveSpeed;
+        public float BoostSpeed => m_moveSpeed * m_boostSpeedMultiplier;
+
+        public event System.Action OnBeginBoosting;
+        public event System.Action OnEndBoosting;
 
         private void LateUpdate()
         {
@@ -46,8 +54,8 @@ namespace Train.PlayerController
 
             // move by velocity
             Vector3 dirToTarget = (m_targetPos - m_rb.position).normalized;
-            float speed = m_moveSpeed * (m_isBoosting ? m_boostSpeedMultiplier : 1f);
-            Vector3 velocity = speed * dirToTarget;
+            m_currentSpeed = m_moveSpeed * (m_isBoosting ? m_boostSpeedMultiplier : 1f);
+            Vector3 velocity = m_currentSpeed * dirToTarget;
             m_rb.linearVelocity = velocity;
 
             // turn towards target
@@ -64,10 +72,12 @@ namespace Train.PlayerController
             if (context.started)
             {
                 m_isBoosting = true;
+                OnBeginBoosting.Invoke();
             }
             else if (context.canceled)
             {
                 m_isBoosting = false;
+                OnEndBoosting.Invoke();
             }
         }
     }

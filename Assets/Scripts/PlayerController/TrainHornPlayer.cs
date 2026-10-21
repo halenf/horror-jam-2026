@@ -1,13 +1,20 @@
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 
 namespace Train.PlayerController
 {
     public class TrainHornPlayer : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private AudioSource m_hornAudioSource;
+        [SerializeField] private AudioMixer m_hornMixer;
+
+        [Header("Playback")]
         [SerializeField, Min(0f)] private float m_fadeInSpeed = 1f;
         [SerializeField, Min(0f)] private float m_fadeOutSpeed = 1f;
+        [SerializeField, Range(0.5f, 2f)] private float m_randomPitchRangeLower = 0.5f;
+        [SerializeField, Range(0.5f, 2f)] private float m_randomPitchRangeUpper = 1.5f;
 
         private bool m_isHorny = false;
 
@@ -32,8 +39,18 @@ namespace Train.PlayerController
             }
         }
 
+        private void OnValidate()
+        {
+            if (m_randomPitchRangeUpper < m_randomPitchRangeLower || m_randomPitchRangeLower > m_randomPitchRangeUpper)
+            {
+                m_randomPitchRangeUpper = m_randomPitchRangeLower;
+            }
+        }
+
         private void PlayHorn()
         {
+            float randomPitch = Random.Range(m_randomPitchRangeLower, m_randomPitchRangeUpper);
+            m_hornMixer.SetFloat("HornPitch", randomPitch);
             m_hornAudioSource.Play();
         }
 
