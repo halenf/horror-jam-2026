@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Train.Manager
 {
+
+    using Player;
+
     public class TimerScript : MonoBehaviour
     {
         [SerializeField] private float m_startTime = 60f;
@@ -10,14 +13,21 @@ namespace Train.Manager
 
         private float m_gameTime = 0f;
 
-        private float m_timeMultiplier = 1f;
+        private float m_timeExtraMultiplier = 1f;
+
+        private float m_boostMultiplier = 2f;
 
         public float GameTime { get => m_gameTime; private set { } }
         public float MaxGameTime { get => m_maxTime; private set { } }
-        public float GameTimeMultiplier { get => m_timeMultiplier; private set { } }
+        public float GameTimeMultiplier { get => m_timeExtraMultiplier; private set { } }
+
+
+        public PlayerController controller;
 
         public static TimerScript Instance;
 
+
+        bool m_isBoosting = false;
 
         private void Awake()
         {
@@ -28,8 +38,26 @@ namespace Train.Manager
         // Update is called once per frame
         void Update()
         {
-            m_gameTime -= Time.deltaTime * m_timeMultiplier;
+            float boost = (m_isBoosting) ? m_boostMultiplier : 1f;
+
+            m_gameTime -= Time.deltaTime * boost * m_timeExtraMultiplier;
         }
+
+        private void OnEnable()
+        {
+            controller.OnBeginBoosting += StartBoosting;
+            controller.OnEndBoosting += StopBoosting;
+        }
+
+        private void OnDisable()
+        {
+            controller.OnBeginBoosting -= StartBoosting;
+            controller.OnEndBoosting -= StopBoosting;
+        }
+
+
+        private void StartBoosting() { m_isBoosting = true; }
+        private void StopBoosting() { m_isBoosting = false; }
 
         /// <summary>
         /// adds an amount of time to the timer (wow!)
@@ -73,12 +101,12 @@ namespace Train.Manager
 
         public void SetMultiplier(float multiplierToSet)
         {
-            m_timeMultiplier = multiplierToSet;
+            m_timeExtraMultiplier = multiplierToSet;
         }
 
         public void AddTimeMultiplier(float multiplierToAdd)
         {
-            m_timeMultiplier += multiplierToAdd;
+            m_timeExtraMultiplier += multiplierToAdd;
         }
 
         /// <summary>

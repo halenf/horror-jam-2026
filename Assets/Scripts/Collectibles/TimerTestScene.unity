@@ -321,6 +321,75 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &355502835
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2028908664258537994, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1545235953}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.744
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6264451350252123162, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6264451350252123162, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8809399342217044977, guid: 6b453a34890bec148beb196982d92888, type: 3}
+      propertyPath: m_camera
+      value: 
+      objectReference: {fileID: 1545235953}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6b453a34890bec148beb196982d92888, type: 3}
 --- !u!1 &383087465
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1056,7 @@ Transform:
   m_GameObject: {fileID: 1315548922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.31686, y: 1.19, z: 0.31686}
+  m_LocalPosition: {x: 0.31686, y: 0.692, z: 0.31686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1005,7 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b783c8dffba83c742b17ffd21c0c6d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Testing.Bruh
-  m_value: 10
+  m_value: 9999
 --- !u!1 &1442999541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,6 +1339,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &1693018184 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8809399342217044977, guid: 6b453a34890bec148beb196982d92888, type: 3}
+  m_PrefabInstance: {fileID: 355502835}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6acee14e9d5f14409e4f9b6cd622e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Train.PlayerController.PlayerController
 --- !u!1 &1699029523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,6 +1521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimerScript
   m_startTime: 60
   m_maxTime: 120
+  controller: {fileID: 1693018184}
 --- !u!4 &1935673163
 Transform:
   m_ObjectHideFlags: 0
@@ -1605,3 +1686,4 @@ SceneRoots:
   - {fileID: 1699029528}
   - {fileID: 496475385}
   - {fileID: 383087468}
+  - {fileID: 355502835}
