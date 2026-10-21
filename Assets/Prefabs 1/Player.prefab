@@ -298,7 +298,7 @@ MonoBehaviour:
   m_hornAudioSource: {fileID: 6818864912728436332}
   m_hornMixer: {fileID: 24100000, guid: 76b90d13b7298fb4881d904871f6d31c, type: 2}
   m_fadeInSpeed: 5
-  m_fadeOutSpeed: 1
+  m_fadeOutSpeed: 0.6
   m_randomPitchRangeLower: 0.5
   m_randomPitchRangeUpper: 1.2
 --- !u!82 &6818864912728436332
@@ -314,7 +314,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: d5fbf1aee097f5248ad9423cc12188c5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 2028908664258537994}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
