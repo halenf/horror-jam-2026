@@ -811,10 +811,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Train.PlayerController.PlayerController
   m_rb: {fileID: 2059933578}
-  m_col: {fileID: 2059933577}
   m_camera: {fileID: 81483116}
   m_cameraOffset: {x: 0, y: 9.5, z: -1.6}
-  m_moveSpeed: 10
+  m_moveSpeed: 5
+  m_boostSpeedMultiplier: 2
 --- !u!4 &2059933580
 Transform:
   m_ObjectHideFlags: 0
@@ -872,6 +872,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d0021ec6-eaee-4a0d-868a-a4ce0cb94724
     m_ActionName: 'Train/Mouse[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2059933579}
+        m_TargetAssemblyTypeName: Train.PlayerController.PlayerController, Assembly-CSharp
+        m_MethodName: OnPress
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e8a6a5b6-21a1-4f9b-9e9a-008f9271ec74
+    m_ActionName: 'Train/Press[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Train

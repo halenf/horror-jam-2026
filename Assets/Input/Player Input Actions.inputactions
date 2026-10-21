@@ -7,13 +7,22 @@
             "id": "ecbbdc1c-f440-4399-a1c8-dc7bcb3f3765",
             "actions": [
                 {
-                    "name": "Mouse",
+                    "name": "MousePosition",
                     "type": "Value",
                     "id": "d0021ec6-eaee-4a0d-868a-a4ce0cb94724",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Press",
+                    "type": "Button",
+                    "id": "e8a6a5b6-21a1-4f9b-9e9a-008f9271ec74",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -24,7 +33,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouse",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5c9433c-a19c-4a06-888c-4307dfc6d64e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Press",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
