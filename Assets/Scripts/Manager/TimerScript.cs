@@ -13,6 +13,7 @@ namespace Train.Manager
         private float m_timeMultiplier = 1f;
 
         public float GameTime { get => m_gameTime; private set { } }
+        public float MaxGameTime { get => m_maxTime; private set { } }
         public float GameTimeMultiplier { get => m_timeMultiplier; private set { } }
 
         public static TimerScript Instance;
