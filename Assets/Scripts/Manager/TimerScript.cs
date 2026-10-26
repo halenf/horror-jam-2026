@@ -2,33 +2,29 @@ using UnityEngine;
 
 namespace Train.Manager
 {
-
     using Player;
 
     public class TimerScript : MonoBehaviour
     {
+        [Header("References")]
+        [SerializeField] private PlayerController m_player;
+
+        [Header("Fields")]
         [SerializeField] private float m_startTime = 60f;
-
         [SerializeField] private float m_maxTime = 120f;
-
-        private float m_gameTime = 0f;
+        [SerializeField] private float m_boostMultiplier = 2f;
 
         private float m_timeExtraMultiplier = 1f;
-
-        private float m_boostMultiplier = 2f;
+        private float m_gameTime = 0f;
+        private bool m_isBoosting = false;
+        // If this is true, the timer will not tick down
+        private bool m_paused;
 
         public float GameTime { get => m_gameTime; private set { } }
         public float MaxGameTime { get => m_maxTime; private set { } }
         public float GameTimeMultiplier { get => m_timeExtraMultiplier; private set { } }
 
-
-        public PlayerController controller;
-
         public static TimerScript Instance;
-
-
-        bool m_isBoosting = false;
-
         private void Awake()
         {
             Instance = this;
@@ -38,21 +34,28 @@ namespace Train.Manager
         // Update is called once per frame
         void Update()
         {
-            float boost = (m_isBoosting) ? m_boostMultiplier : 1f;
+            if (!m_paused)
+            {
+                float boost = (m_isBoosting) ? m_boostMultiplier : 1f;
 
-            m_gameTime -= Time.deltaTime * boost * m_timeExtraMultiplier;
+                m_gameTime -= Time.deltaTime * boost * m_timeExtraMultiplier;
+            }
         }
 
         private void OnEnable()
         {
-            controller.OnBeginBoosting += StartBoosting;
-            controller.OnEndBoosting += StopBoosting;
+            m_player.OnBeginBoosting += StartBoosting;
+            m_player.OnEndBoosting += StopBoosting;
+
+            m_paused = false;
         }
 
         private void OnDisable()
         {
-            controller.OnBeginBoosting -= StartBoosting;
-            controller.OnEndBoosting -= StopBoosting;
+            m_player.OnBeginBoosting -= StartBoosting;
+            m_player.OnEndBoosting -= StopBoosting;
+
+            m_paused = true;
         }
 
 
@@ -119,6 +122,16 @@ namespace Train.Manager
             if (cappedTime > previousTime) { return cappedTime; }
 
             return (currentTime > m_maxTime) ? previousTime : currentTime;
+        }
+
+        public void PauseTimer()
+        {
+            m_paused = true;
+        }
+
+        public void UnpauseTimer()
+        {
+            m_paused = false;
         }
     }
 }

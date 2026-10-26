@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Train.Destroyables
 {
+    [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public class Destroyable : MonoBehaviour
     {
         [Header("References")]

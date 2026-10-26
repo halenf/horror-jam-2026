@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 namespace Train.Player
 {
+    using Manager;
+
     public class PlayerController : MonoBehaviour
     {
         [Header("References")]
