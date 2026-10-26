@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
+using System.Linq;
+
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Train.Collectibles
 {
@@ -10,14 +16,16 @@ namespace Train.Collectibles
     {
         [Header("References")]
         [SerializeField] private Collectible m_collectiblePrefab;
-        [SerializeField] private Transform[] m_spawnLocations;
 
-        [Header("Fields")]
         [Tooltip("Size of Collectible object pool for this CollectibleSpawner;\nNumber of Collectibles that can exist at any given time.")]
         [SerializeField, Min(0)] private int m_poolSize;
         [SerializeField, Min(0f)] private float m_respawnTimerLower = 1f;
         [SerializeField, Min(0f)] private float m_respawnTimerUpper = 3f;
+        [Tooltip("When the game starts, the initial respawn timer values for each Collectible will be separated by this many seconds.")]
         [SerializeField, Min(0f)] private float m_initialSpawnTimerGap = 1.8f;
+        [Header("Spawn Location")]
+        [SerializeField] private Vector3[] m_spawnLocations;
+        [Tooltip("When a Collectible is spawned, a random offset will be applied with a +- range from this Vector on the X and Z axes.")]
         [SerializeField] private Vector2 m_randomSpawnOffset;
 
         private Collectible[] m_pooledCollectibles;
@@ -115,7 +123,7 @@ namespace Train.Collectibles
             Collectible collectibleToSpawn = m_pooledCollectibles[indexToSpawn];
 
             // get where to spawn it
-            collectibleToSpawn.transform.SetPositionAndRotation(GetRandomSpawnLocation(), Random.rotation);
+            collectibleToSpawn.transform.SetPositionAndRotation(GetRandomSpawnLocation(), GetRandomSpawnRotation());
 
             // reset values
             collectibleToSpawn.OnRespawn();
@@ -146,15 +154,38 @@ namespace Train.Collectibles
             if (m_spawnLocations.Length == 0)
                 return transform.position + randomOffset;
             else
-                return m_spawnLocations[Random.Range(0, m_spawnLocations.Length)].position + randomOffset;
+                return m_spawnLocations[Random.Range(0, m_spawnLocations.Length)] + randomOffset;
         }
 
         private float GetRandomRespawnTimer()
         {
             return Random.Range(m_respawnTimerLower, m_respawnTimerUpper);
         }
+        private Quaternion GetRandomSpawnRotation()
+        {
+            Vector2 randomDir = Random.onUnitCircle;
+            return Quaternion.LookRotation(new(randomDir.x, 0, randomDir.y));
+        }
 
 #if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            // scale gizmo size with scene camera distance to keep them "constant"
+            Vector3 averagePos = Vector3.zero;
+            foreach (Vector3 pos in m_spawnLocations)
+            {
+                averagePos += pos;
+            }
+            averagePos /= m_spawnLocations.Length;
+            
+            foreach (Vector3 pos in m_spawnLocations)
+            {
+                Camera sceneCamera = SceneView.lastActiveSceneView.camera;
+                float size = Mathf.Max(0.3f, Vector3.Distance(sceneCamera.transform.position, averagePos) / 50f);
+                Gizmos.DrawCube(pos, Vector3.one * size);
+            }
+        }
+
         [ContextMenu("Spawn Collectible")]
         public void Spawn_EditorOnly()
         {

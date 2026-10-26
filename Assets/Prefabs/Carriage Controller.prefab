@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8445320470127375757
+--- !u!1 &7257884389824596329
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6686789660079708854}
-  - component: {fileID: 7198730884039994613}
-  m_Layer: 0
-  m_Name: Default Collectible Spawner
+  - component: {fileID: 3081840923186588333}
+  - component: {fileID: 7287860818076885313}
+  m_Layer: 3
+  m_Name: Carriage Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6686789660079708854
+--- !u!4 &3081840923186588333
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8445320470127375757}
+  m_GameObject: {fileID: 7257884389824596329}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,26 +32,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7198730884039994613
+--- !u!114 &7287860818076885313
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8445320470127375757}
+  m_GameObject: {fileID: 7257884389824596329}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b7cd71656c0eb4abec72f45d3f0a61, type: 3}
+  m_Script: {fileID: 11500000, guid: e0caa2e4bd2259c488434de6d8a073d7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Train.Collectibles.CollectibleSpawner
-  m_collectiblePrefab: {fileID: 2689776855966365478, guid: 29f1b25fcf846f4418a2116b561a0f38, type: 3}
-  m_spawnLocations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_poolSize: 10
-  m_respawnTimerLower: 3
-  m_respawnTimerUpper: 8
-  m_initialSpawnTimerGap: 1.8
-  m_randomSpawnOffset: {x: 2, y: 2}
+  m_EditorClassIdentifier: Assembly-CSharp::Train.Player.CarriageController
+  m_player: {fileID: 0}
+  m_carriagePrefab: {fileID: 3818628164839444732, guid: 61d3dc96fb87fdb42aceda47fa8c078c, type: 3}
+  m_rootFollower: {fileID: 0}
+  m_followDistance: 1.3

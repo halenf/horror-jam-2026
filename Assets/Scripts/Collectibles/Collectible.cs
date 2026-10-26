@@ -87,7 +87,6 @@ namespace Train.Collectibles
         {
             float t = Mathf.Min(m_notifiedLifetime / m_moveSpeedDecayDuration, 1f);
             return m_moveSpeedDecayFunction.Evaluate(t) * (m_maxMoveSpeed - m_minMoveSpeed) + m_minMoveSpeed;
-                // (m_player.CurrentSpeed - m_speedUpper) / (m_speedLower - m_speedUpper);
         }
     }
 }

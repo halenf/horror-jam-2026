@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 namespace Train.Player
 {
-    using Manager;
-
     public class PlayerController : MonoBehaviour
     {
         [Header("References")]
@@ -17,6 +15,7 @@ namespace Train.Player
 
         [Header("Movement")]
         [SerializeField, Min(0f)] private float m_moveSpeed = 5f;
+        [SerializeField] private LayerMask m_wallFlipRaycastMask;
 
         [Header("Turning")]
         [SerializeField] private float m_maxTurnSpeed;
@@ -36,9 +35,10 @@ namespace Train.Player
         private bool m_isBoosting = false;
 
         // movement properties
-        public float CurrentSpeed => m_currentSpeed;
+        public float CurrentSpeed => m_rb.linearVelocity.magnitude;
         public float MoveSpeed => m_moveSpeed;
         public float BoostSpeed => m_boostSpeed;
+        public float MaxTurnSpeed => m_maxTurnSpeed;
 
         // events
         public event System.Action OnBeginBoosting;
@@ -82,7 +82,6 @@ namespace Train.Player
             }
             Vector3 velocity = m_currentSpeed * transform.forward;
             m_rb.linearVelocity = velocity;
-            
         }
 
         public void OnMouseMove(InputAction.CallbackContext context)
@@ -101,6 +100,20 @@ namespace Train.Player
             {
                 m_isBoosting = false;
                 OnEndBoosting.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Flip direction based on surface normal when hitting object.
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter(Collision collision)
+        {
+            // use raycast to get surface normal
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 3f, m_wallFlipRaycastMask))
+            {
+                Vector3 surfaceNormal = hit.normal;
+                transform.forward = Vector3.Reflect(transform.forward, surfaceNormal);
             }
         }
     }

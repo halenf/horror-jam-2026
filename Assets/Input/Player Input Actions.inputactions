@@ -32,6 +32,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Debug Add Carriage",
+                    "type": "Button",
+                    "id": "36bcbae6-18ee-4876-904b-8e6dd1881915",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -39,6 +48,17 @@
                     "name": "",
                     "id": "d17d89d0-a53c-4732-ad77-0a2a2eb8510b",
                     "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d31823d9-f3fb-4a2d-ab2a-a9803f4662d4",
+                    "path": "<Touchscreen>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -65,6 +85,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Horn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "839e2bb1-5825-42d5-92e7-ad270fb0f93c",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Debug Add Carriage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
