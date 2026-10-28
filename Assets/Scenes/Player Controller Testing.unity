@@ -957,6 +957,66 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: collectibleLoadPath
+      value: Assets/Prefabs/Collectibles
+      objectReference: {fileID: 0}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: m_collectiblePrefabs.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: d477bf7684169aa49952f9613027f1ad, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 75fcfc4f7497fd449b8e9b20302ebf64, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: c8495415eb77b464dba21f11e6dbe668, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 74a5b4c59c4e6f542b2d3c803dd7b282, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 3f5f2b316e5b2324392343ec634a6d2c, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 3287e46364c77e24393f86ccda39dc4d, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[6]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: ea4cb25aebc114948b50321d70ee2877, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[7]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 3f0cb7697e1bd744189c8536ef25e9fa, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[8]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 61345f5c6a9526e499e2d884b3b96e8b, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[9]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 427d1b4039e00a34ba1b6e27d12174fc, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[10]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 43475857bbb44204fbf1217d355680e6, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[11]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 1fa7e83dd0b29a845b6ff7cce5014266, type: 3}
+    - target: {fileID: 7198730884039994613, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
+      propertyPath: 'm_collectiblePrefabs.Array.data[12]'
+      value: 
+      objectReference: {fileID: 6670150337129448174, guid: 1fa7e83dd0b29a845b6ff7cce5014266, type: 3}
     - target: {fileID: 8445320470127375757, guid: 5a578a0d8423fe24bbf237c4b258f2d0, type: 3}
       propertyPath: m_Name
       value: Collectible Spawner

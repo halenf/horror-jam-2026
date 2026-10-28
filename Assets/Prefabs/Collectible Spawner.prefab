@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b7cd71656c0eb4abec72f45d3f0a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Train.Collectibles.CollectibleSpawner
-  m_collectiblePrefab: {fileID: 2689776855966365478, guid: 29f1b25fcf846f4418a2116b561a0f38, type: 3}
+  m_collectiblePrefabs: []
   m_poolSize: 10
   m_respawnTimerLower: 3
   m_respawnTimerUpper: 8
@@ -55,3 +55,4 @@ MonoBehaviour:
   - {x: -17, y: 0, z: -17}
   - {x: 17, y: 0, z: -17}
   m_randomSpawnOffset: {x: 2, y: 2}
+  m_collectibleLoadPath: Assets\Prefabs\Collectibles\

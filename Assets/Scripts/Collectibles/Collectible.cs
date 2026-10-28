@@ -11,6 +11,7 @@ namespace Train.Collectibles
     {
         [Header("References")]
         [SerializeField] protected Rigidbody m_rb;
+        [SerializeField] protected Animator m_anim;
 
         [Header("Timer")]
         [SerializeField] protected float m_value = 3f;
@@ -45,10 +46,16 @@ namespace Train.Collectibles
                 Vector3 dirNormalised = dirVector.normalized;
 
                 // move away from player
-                m_rb.MovePosition(m_rb.position + GetMovementSpeed() * Time.fixedDeltaTime * dirNormalised);
+                float speed = GetMovementSpeed();
+                m_rb.MovePosition(m_rb.position + speed * Time.fixedDeltaTime * dirNormalised);
 
                 // rotate towards movement direction
                 m_rb.MoveRotation(Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirVector), m_turnSpeed * Time.fixedDeltaTime));
+
+                if (m_anim != null)
+                {
+                    m_anim.SetFloat("MoveSpeed", speed / m_maxMoveSpeed);
+                }
             }
         }
 
@@ -64,6 +71,11 @@ namespace Train.Collectibles
         {
             m_player = player;
             m_notifiedOfPlayer = true;
+
+            if (m_anim != null)
+            {
+                m_anim.SetBool("IsRunning", true);
+            }
         }
 
         /// <summary>

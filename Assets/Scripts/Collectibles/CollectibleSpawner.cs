@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Random = UnityEngine.Random;
-using System.Linq;
-
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -15,7 +13,7 @@ namespace Train.Collectibles
     public class CollectibleSpawner : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private Collectible m_collectiblePrefab;
+        [SerializeField] private Collectible[] m_collectiblePrefabs;
 
         [Tooltip("Size of Collectible object pool for this CollectibleSpawner;\nNumber of Collectibles that can exist at any given time.")]
         [SerializeField, Min(0)] private int m_poolSize;
@@ -83,7 +81,7 @@ namespace Train.Collectibles
             for (int i = 0; i < m_poolSize; i++)
             {
                 // create object
-                Collectible spawnedCollectible = Instantiate(m_collectiblePrefab, transform);
+                Collectible spawnedCollectible = Instantiate(GetRandomCollectiblePrefab(), transform);
                 // add despawn event
                 spawnedCollectible.onCollected += Despawn;
                 // set name to index
@@ -157,6 +155,10 @@ namespace Train.Collectibles
                 return m_spawnLocations[Random.Range(0, m_spawnLocations.Length)] + randomOffset;
         }
 
+        private Collectible GetRandomCollectiblePrefab()
+        {
+            return m_collectiblePrefabs[Random.Range(0, m_collectiblePrefabs.Length)];
+        }
         private float GetRandomRespawnTimer()
         {
             return Random.Range(m_respawnTimerLower, m_respawnTimerUpper);
@@ -190,6 +192,33 @@ namespace Train.Collectibles
         public void Spawn_EditorOnly()
         {
             Spawn();
+        }
+
+        [Header("Editor Fields")]
+        [SerializeField] private string m_collectibleLoadPath = "Assets\\Prefabs\\Collectibles\\";
+        [ContextMenu("Load Collectible Prefabs")]
+        public void LoadCollectiblePrefabs_EditorOnly()
+        {
+            string[] guids = AssetDatabase.FindAssets(string.Empty, new string[] { m_collectibleLoadPath });
+            int prefabCount = guids.Length;
+            m_collectiblePrefabs = new Collectible[prefabCount];
+            for (int i = 0; i < prefabCount; i++)
+            {
+                string guid = guids[i];
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+
+                try
+                {
+                    Collectible c = AssetDatabase.LoadAssetAtPath<Collectible>(path);
+                    m_collectiblePrefabs[i] = c;
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Error importing Collectible [{path}]: {e.Message}", this);
+                }
+            }
+
+            Debug.Log($"Finished importing Collectibles [{m_collectibleLoadPath}]", this);
         }
 #endif
     }
