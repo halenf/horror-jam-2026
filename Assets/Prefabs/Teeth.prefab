@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1284681675992002862}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.55}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 771468836791529246}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1733314435156397865}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bottom Teeth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 771468836791529246}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Top Teeth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,8 +106,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7131794241529062131}
+  - component: {fileID: 4143398290680565676}
+  - component: {fileID: 8430074035992744106}
   - component: {fileID: 414720662180898727}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Teeth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,6 +132,45 @@ Transform:
   - {fileID: 1284681675992002862}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4143398290680565676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110492000059564051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b1f81d715708f4dbc8005b6e3ffdc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Train.Collectibles.CollectibleDetector
+  m_teethAnimator: {fileID: 414720662180898727}
+  m_goreParticleSystemPrefab: {fileID: 1319298964652852932, guid: 731f1ed25d7adb447ad7fee99c7ae785, type: 3}
+  m_collectDelay: 1
+  m_maxGoreParticleSystems: 5
+--- !u!136 &8430074035992744106
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9110492000059564051}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Height: 1.75
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &414720662180898727
 Animator:
   serializedVersion: 7
@@ -200,9 +241,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2876068105851302605, guid: d3753a14fe5d76c41a4d2668417577ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -603839706650953295, guid: d3753a14fe5d76c41a4d2668417577ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d3753a14fe5d76c41a4d2668417577ba, type: 3}
       propertyPath: m_Name
       value: teeth_bottom
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d3753a14fe5d76c41a4d2668417577ba, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -262,9 +315,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2876068105851302605, guid: c9510d6084c62c14f928ea368994b303, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -603839706650953295, guid: c9510d6084c62c14f928ea368994b303, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c9510d6084c62c14f928ea368994b303, type: 3}
       propertyPath: m_Name
       value: teeth_top
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9510d6084c62c14f928ea368994b303, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

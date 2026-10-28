@@ -9,6 +9,13 @@ namespace Train.Collectibles
     [RequireComponent(typeof(Collider), typeof(Rigidbody))]
     public class Collectible : MonoBehaviour
     {
+        private enum CollectibleState
+        {
+            Idle,
+            Notified,
+            BeingEaten
+        }
+
         [Header("References")]
         [SerializeField] protected Rigidbody m_rb;
         [SerializeField] protected Animator m_anim;
@@ -26,32 +33,43 @@ namespace Train.Collectibles
         public event Action<Collectible> onCollected;
 
         private PlayerController m_player;
-        private bool m_notifiedOfPlayer = false;
-        private float m_notifiedLifetime;
+        private CollectibleState m_state;
+        private float m_stateTimer;
+        private float m_collectDelay;
+        private Transform m_beingEatenTarget;
 
         private void Update()
         {
-            if (m_notifiedOfPlayer)
+            m_stateTimer += Time.deltaTime;
+
+            if (m_state == CollectibleState.BeingEaten)
             {
-                m_notifiedLifetime += Time.deltaTime;
+                // if should be collected
+                if (m_stateTimer >= m_collectDelay)
+                {
+                    Collect();
+                    return;
+                }
+
+                transform.SetPositionAndRotation(m_beingEatenTarget.position - m_beingEatenTarget.forward, m_beingEatenTarget.rotation * Quaternion.Euler(new(-90f, 0, 180f)));
             }
         }
 
         private void FixedUpdate()
         {
-            if (m_notifiedOfPlayer)
+            if (m_state == CollectibleState.Notified)
             {
                 Vector3 dirVector = transform.position - m_player.transform.position;
                 dirVector.y = 0f; // flatten, no Y-axis movement
                 Vector3 dirNormalised = dirVector.normalized;
 
-                // move away from player
-                float speed = GetMovementSpeed();
-                m_rb.linearVelocity = speed * Time.fixedDeltaTime * dirNormalised;
-                //m_rb.MovePosition(m_rb.position + speed * Time.fixedDeltaTime * dirNormalised);
-
                 // rotate towards movement direction
                 m_rb.MoveRotation(Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirVector), m_turnSpeed * Time.fixedDeltaTime));
+
+                // move away from player
+                float speed = GetMovementSpeed();
+                m_rb.linearVelocity = speed * dirNormalised;
+                //m_rb.MovePosition(m_rb.position + speed * Time.fixedDeltaTime * dirNormalised);
 
                 if (m_anim != null)
                 {
@@ -60,45 +78,65 @@ namespace Train.Collectibles
             }
         }
 
-        public virtual void Initialise(float value)
-        {
-            m_value = value;
-        }
-
         /// <summary>
         /// Let the Collectible know that the player is close by
         /// </summary>
         public virtual void Notify(PlayerController player)
         {
-            m_player = player;
-            m_notifiedOfPlayer = true;
-
-            if (m_anim != null)
+            if (m_state == CollectibleState.Idle)
             {
-                m_anim.SetBool("IsRunning", true);
+                m_player = player;
+                m_state = CollectibleState.Notified;
+                m_stateTimer = 0f;
+
+                if (m_anim != null)
+                {
+                    m_anim.SetBool("IsRunning", true);
+                }
             }
         }
 
         /// <summary>
-        /// Destroy the Collectible and add its value to the timer
+        /// Being eaten, in Update() waits until timer hits delay then gets collected.
+        /// </summary>
+        public virtual void BeginCollect(float delay, Transform target)
+        {
+            if (m_state == CollectibleState.Notified)
+            {
+                m_state = CollectibleState.BeingEaten;
+                m_rb.isKinematic = true;
+                m_stateTimer = 0f;
+                m_collectDelay = delay;
+                m_beingEatenTarget = target;
+
+                if (m_anim != null)
+                {
+                    m_anim.SetTrigger("GetEaten");
+                }
+            }
+        }
+        /// <summary>
+        /// Collect without being eaten, or called after finished being eaten.
         /// </summary>
         public virtual void Collect()
         {
+            m_state = CollectibleState.Idle;
+            m_rb.isKinematic = false;
             TimerScript.Instance.AddTime(m_value);
-
-            // despawn
             onCollected.Invoke(this);
         }
 
+        /// <summary>
+        /// Reset values after being respawned.
+        /// </summary>
         public void OnRespawn()
         {
-            m_notifiedOfPlayer = false;
-            m_notifiedLifetime = 0f;
+            m_stateTimer = 0f;
         }
 
         private float GetMovementSpeed()
         {
-            float t = Mathf.Min(m_notifiedLifetime / m_moveSpeedDecayDuration, 1f);
+            float t = Mathf.Min(m_stateTimer / m_moveSpeedDecayDuration, 1f);
             return m_moveSpeedDecayFunction.Evaluate(t) * (m_maxMoveSpeed - m_minMoveSpeed) + m_minMoveSpeed;
         }
     }

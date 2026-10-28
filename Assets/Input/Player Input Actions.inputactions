@@ -79,6 +79,17 @@
                 },
                 {
                     "name": "",
+                    "id": "4a605e15-ab89-457e-ba5c-7acf882bbe78",
+                    "path": "<Touchscreen>/Press",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e5dfc447-f11c-47b8-8f15-393e8b02d02a",
                     "path": "<Keyboard>/space",
                     "interactions": "",

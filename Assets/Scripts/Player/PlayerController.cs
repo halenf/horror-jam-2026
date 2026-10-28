@@ -7,6 +7,7 @@ namespace Train.Player
     {
         [Header("References")]
         [SerializeField] private Rigidbody m_rb;
+        [SerializeField] private CapsuleCollider m_col;
         [SerializeField] private Camera m_camera;
 
         [Header("Camera")]
@@ -16,6 +17,8 @@ namespace Train.Player
         [Header("Movement")]
         [SerializeField, Min(0f)] private float m_moveSpeed = 5f;
         [SerializeField] private LayerMask m_wallFlipRaycastMask;
+        [SerializeField, Min(0f)] private float m_wallFlipCastRadius = 0.5f;
+        [SerializeField, Min(0f)] private float m_wallFlipCastMaxDistance = 3f;
 
         [Header("Turning")]
         [SerializeField] private float m_maxTurnSpeed;
@@ -107,14 +110,45 @@ namespace Train.Player
         /// Flip direction based on surface normal when hitting object.
         /// </summary>
         /// <param name="collision"></param>
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionStay(Collision collision) 
         {
-            // use raycast to get surface normal
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 3f, m_wallFlipRaycastMask))
+            // use raycast to get surface normal.
+            // use raycast to check for smaller objects, OR
+            // use capsule cast to check area
+            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, m_wallFlipCastMaxDistance, m_wallFlipRaycastMask, QueryTriggerInteraction.Ignore))
             {
-                Vector3 surfaceNormal = hit.normal;
-                transform.forward = Vector3.Reflect(transform.forward, surfaceNormal);
+                Reflect(hit.normal);
             }
+            else
+            {
+                // not using || (OR) to avoid needing to declare this before if statement, not always using them
+                Vector3 p1 = transform.position + m_col.center + 0.5f * -m_col.height * Vector3.forward;
+                Vector3 p2 = p1 + Vector3.forward * m_col.height;
+                if (Physics.CapsuleCast(p1, p2, m_wallFlipCastRadius, transform.forward, out hit, m_wallFlipCastMaxDistance, m_wallFlipRaycastMask, QueryTriggerInteraction.Ignore))
+                {
+                    Reflect(hit.normal);
+                }
+            }
+
+            void Reflect(Vector3 normal)
+            {
+                transform.forward = Vector3.Reflect(transform.forward, normal);
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.color = Color.lawnGreen;
+
+            Vector3 p1 = m_col.center + 0.5f * -m_col.height * Vector3.forward;
+            Vector3 p2 = p1 + Vector3.forward * m_col.height;
+
+            Gizmos.DrawSphere(p1, m_wallFlipCastRadius);
+            Gizmos.DrawSphere(p2, m_wallFlipCastRadius);
+            Vector3 castOffset = Vector3.forward * m_wallFlipCastMaxDistance;
+            Gizmos.DrawSphere(p1 + castOffset, m_wallFlipCastRadius);
+            Gizmos.DrawSphere(p2 + castOffset, m_wallFlipCastRadius);
         }
     }
 }

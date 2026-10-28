@@ -28,7 +28,7 @@ namespace Train.Collectibles
 
         private Collectible[] m_pooledCollectibles;
         private float[] m_respawnTimers;
-        private readonly List<int> m_freeIndices = new();
+        private List<int> m_freeIndices = new();
 
         private void Start()
         {

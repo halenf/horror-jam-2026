@@ -44,7 +44,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52b7cd71656c0eb4abec72f45d3f0a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Train.Collectibles.CollectibleSpawner
-  m_collectiblePrefabs: []
+  m_collectiblePrefabs:
+  - {fileID: 6670150337129448174, guid: d477bf7684169aa49952f9613027f1ad, type: 3}
+  - {fileID: 6670150337129448174, guid: 75fcfc4f7497fd449b8e9b20302ebf64, type: 3}
+  - {fileID: 6670150337129448174, guid: c8495415eb77b464dba21f11e6dbe668, type: 3}
+  - {fileID: 6670150337129448174, guid: 74a5b4c59c4e6f542b2d3c803dd7b282, type: 3}
+  - {fileID: 6670150337129448174, guid: 3f5f2b316e5b2324392343ec634a6d2c, type: 3}
+  - {fileID: 6670150337129448174, guid: 3287e46364c77e24393f86ccda39dc4d, type: 3}
+  - {fileID: 6670150337129448174, guid: ea4cb25aebc114948b50321d70ee2877, type: 3}
+  - {fileID: 6670150337129448174, guid: 3f0cb7697e1bd744189c8536ef25e9fa, type: 3}
+  - {fileID: 6670150337129448174, guid: 61345f5c6a9526e499e2d884b3b96e8b, type: 3}
+  - {fileID: 6670150337129448174, guid: 427d1b4039e00a34ba1b6e27d12174fc, type: 3}
+  - {fileID: 6670150337129448174, guid: 43475857bbb44204fbf1217d355680e6, type: 3}
+  - {fileID: 6670150337129448174, guid: 1fa7e83dd0b29a845b6ff7cce5014266, type: 3}
   m_poolSize: 10
   m_respawnTimerLower: 3
   m_respawnTimerUpper: 8

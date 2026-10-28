@@ -139,7 +139,7 @@ Rigidbody:
   m_GameObject: {fileID: 7469536991688672983}
   serializedVersion: 5
   m_Mass: 10
-  m_LinearDamping: 10
+  m_LinearDamping: 3
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -155,5 +155,5 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 84
   m_CollisionDetection: 0
