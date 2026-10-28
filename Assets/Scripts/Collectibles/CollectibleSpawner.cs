@@ -172,6 +172,7 @@ namespace Train.Collectibles
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            /*
             // scale gizmo size with scene camera distance to keep them "constant"
             Vector3 averagePos = Vector3.zero;
             foreach (Vector3 pos in m_spawnLocations)
@@ -185,6 +186,13 @@ namespace Train.Collectibles
                 Camera sceneCamera = SceneView.lastActiveSceneView.camera;
                 float size = Mathf.Max(0.3f, Vector3.Distance(sceneCamera.transform.position, averagePos) / 50f);
                 Gizmos.DrawCube(pos, Vector3.one * size);
+            }
+            */
+
+            Gizmos.color = Color.cornflowerBlue;
+            foreach (Vector3 pos in m_spawnLocations)
+            {
+                Gizmos.DrawCube(pos, new(m_randomSpawnOffset.x, 0, m_randomSpawnOffset.y));
             }
         }
 

@@ -47,7 +47,8 @@ namespace Train.Collectibles
 
                 // move away from player
                 float speed = GetMovementSpeed();
-                m_rb.MovePosition(m_rb.position + speed * Time.fixedDeltaTime * dirNormalised);
+                m_rb.linearVelocity = speed * Time.fixedDeltaTime * dirNormalised;
+                //m_rb.MovePosition(m_rb.position + speed * Time.fixedDeltaTime * dirNormalised);
 
                 // rotate towards movement direction
                 m_rb.MoveRotation(Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirVector), m_turnSpeed * Time.fixedDeltaTime));
