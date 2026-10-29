@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.4230957, y: 8.0534}
-  m_SizeDelta: {x: 309.5516, y: 21.1921}
+  m_AnchoredPosition: {x: 0.0009765625, y: -0.00061798096}
+  m_SizeDelta: {x: 0.006439209, y: -0.0008010864}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &161809288
 MonoBehaviour:
@@ -259,16 +259,15 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 849545000}
   - {fileID: 1771586679}
   - {fileID: 161809287}
   - {fileID: 1963860379}
   m_Father: {fileID: 882241867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -72.69647, y: -27.5}
-  m_SizeDelta: {x: 175.1341, y: 42.4161}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 486.6976, y: 63.609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331058120
 MonoBehaviour:
@@ -317,7 +316,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -605,8 +604,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 25.786316, y: -6.279}
+  m_SizeDelta: {x: 48.5111, y: -37.6995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &771830044
 MonoBehaviour:
@@ -621,15 +620,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8113208, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.4264151, b: 0.052665155, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: b941954e326217d4cb4d87348343ee40, type: 3}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -671,12 +670,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849544999}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 331058119}
+  m_Father: {fileID: 1771586679}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -696,7 +695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -754,8 +753,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 1.4, y: -79.3}
-  m_SizeDelta: {x: 355.2991, y: 93.8614}
+  m_AnchoredPosition: {x: -0.000005126, y: -74}
+  m_SizeDelta: {x: 351.7721, y: 85.9255}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &896145473
 GameObject:
@@ -806,11 +805,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6292c5c9dd11c664486bd11c837c3fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIScript
-  m_Timer: {fileID: 331058120}
+  m_timer: {fileID: 331058120}
   m_timerText: {fileID: 1963860380}
   m_timerBaseColour: {r: 1, g: 1, b: 1, a: 1}
+  m_timerFlashColour: {r: 1, g: 0, b: 0, a: 1}
   m_timerFlashingTime: 30
-  m_shakeMultiplier: 0
+  m_shakeSize: 2
 --- !u!1 &986620189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1077,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b783c8dffba83c742b17ffd21c0c6d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Testing.Bruh
+  m_rb: {fileID: 0}
+  m_anim: {fileID: 0}
   m_value: 0
+  m_maxMoveSpeed: 3
+  m_minMoveSpeed: 0.5
+  m_moveSpeedDecayDuration: 3
+  m_moveSpeedDecayFunction:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_turnSpeed: 200
 --- !u!1 &1442999541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,13 +1536,14 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 849545000}
   - {fileID: 326259081}
   m_Father: {fileID: 331058119}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.4230957, y: 8.053406}
-  m_SizeDelta: {x: 309.5516, y: 21.1921}
+  m_AnchoredPosition: {x: 0.0009765625, y: -0.00061035156}
+  m_SizeDelta: {x: 0.006439209, y: -0.0008010864}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1771586680
 MonoBehaviour:
@@ -1612,9 +1625,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512fddd59660303469f6bc1971e5f94a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimerScript
+  m_player: {fileID: 1693018184}
   m_startTime: 35
   m_maxTime: 120
-  controller: {fileID: 1693018184}
+  m_boostMultiplier: 2
 --- !u!4 &1935673163
 Transform:
   m_ObjectHideFlags: 0
@@ -1664,7 +1678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 95.746826, y: -21.830666}
+  m_AnchoredPosition: {x: 94.193, y: -26}
   m_SizeDelta: {x: 188.3897, y: 38.576}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1963860380
@@ -1687,10 +1701,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TI:ME:ER
+  m_text: <mspace=15>TI:ME:ER
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4d360e2f8e5f03a4e8bae4f317930ffd, type: 2}
+  m_sharedMaterial: {fileID: 7999732401889764767, guid: 4d360e2f8e5f03a4e8bae4f317930ffd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1714,7 +1728,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.5
+  m_fontSize: 38.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
