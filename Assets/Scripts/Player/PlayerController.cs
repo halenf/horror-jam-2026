@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Train.Player
 {
     public class PlayerController : MonoBehaviour
@@ -136,19 +140,39 @@ namespace Train.Player
             }
         }
 
+#if UNITY_EDITOR
+        [Header("Editor-Only")]
+        [SerializeField] private bool m_drawGizmos = true;
+
         private void OnDrawGizmos()
         {
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.color = Color.lawnGreen;
+            if (!m_drawGizmos)
+                return;
 
-            Vector3 p1 = m_col.center + 0.5f * -m_col.height * Vector3.forward;
-            Vector3 p2 = p1 + Vector3.forward * m_col.height;
+            Handles.matrix = transform.localToWorldMatrix;
+            Handles.color = Color.lawnGreen;
 
-            Gizmos.DrawSphere(p1, m_wallFlipCastRadius);
-            Gizmos.DrawSphere(p2, m_wallFlipCastRadius);
+            Vector3 p1 = m_col.center + 0.5f * -m_col.height * Vector3.forward + m_wallFlipCastRadius * Vector3.forward;
+            Vector3 p2 = p1 + Vector3.forward * m_col.height - 2f * m_wallFlipCastRadius * Vector3.forward;
+
+            Handles.DrawWireDisc(p1, Vector3.up, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p1, Vector3.right, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p1, Vector3.forward, m_wallFlipCastRadius);
+
+            Handles.DrawWireDisc(p2, Vector3.up, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p2, Vector3.right, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p2, Vector3.forward, m_wallFlipCastRadius);
+
             Vector3 castOffset = Vector3.forward * m_wallFlipCastMaxDistance;
-            Gizmos.DrawSphere(p1 + castOffset, m_wallFlipCastRadius);
-            Gizmos.DrawSphere(p2 + castOffset, m_wallFlipCastRadius);
+
+            Handles.DrawWireDisc(p1 + castOffset, Vector3.up, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p1 + castOffset, Vector3.right, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p1 + castOffset, Vector3.forward, m_wallFlipCastRadius);
+
+            Handles.DrawWireDisc(p2 + castOffset, Vector3.up, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p2 + castOffset, Vector3.right, m_wallFlipCastRadius);
+            Handles.DrawWireDisc(p2 + castOffset, Vector3.forward, m_wallFlipCastRadius);
         }
     }
+#endif
 }
