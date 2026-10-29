@@ -7,12 +7,14 @@ using UnityEditor;
 
 namespace Train.Player
 {
+    using Manager;
     public class PlayerController : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private Rigidbody m_rb;
         [SerializeField] private CapsuleCollider m_col;
         [SerializeField] private Camera m_camera;
+        [SerializeField] private CarriageController m_carriages;
 
         [Header("Camera")]
         [SerializeField] private Vector3 m_cameraOffset = new(0f, 9.5f, -3f);
@@ -20,17 +22,21 @@ namespace Train.Player
 
         [Header("Movement")]
         [SerializeField, Min(0f)] private float m_moveSpeed = 5f;
-        [SerializeField] private LayerMask m_wallFlipRaycastMask;
-        [SerializeField, Min(0f)] private float m_wallFlipCastRadius = 0.5f;
-        [SerializeField, Min(0f)] private float m_wallFlipCastMaxDistance = 3f;
-
-        [Header("Turning")]
         [SerializeField] private float m_maxTurnSpeed;
 
         [Header("Boost")]
         [SerializeField, Min(0f)] private float m_boostSpeed = 10f;
         [SerializeField, Min(0f)] private float m_boostAcceleration;
         [SerializeField, Min(0f)] private float m_boostDeceleration;
+
+        [Header("Wall Flip")]
+        [Tooltip("When the Player collides with one of its Carriages, it becomes disabled for this amount of time, and then is reenabled.")]
+        [SerializeField, Min(0f)] private float m_collideDisableDuration = 2f;
+        [Tooltip("How much time you lose when you flip from hitting something.")]
+        [SerializeField, Min(0f)] private float m_timeLossOnFlip = 2.5f;
+        [SerializeField, Min(0f)] private float m_wallFlipCastRadius = 0.5f;
+        [SerializeField, Min(0f)] private float m_wallFlipCastMaxDistance = 3f;
+        [SerializeField] private LayerMask m_wallFlipRaycastMask;
 
         // movement
         private Plane m_playerLevel;
@@ -136,6 +142,13 @@ namespace Train.Player
 
             void Reflect(Vector3 normal)
             {
+                // disable all carriages for a few seconds
+                m_carriages.DisableAllCarriages(m_collideDisableDuration);
+
+                // lose time
+                TimerScript.Instance.LoseTime(m_timeLossOnFlip);
+
+                // flip direction
                 transform.forward = Vector3.Reflect(transform.forward, normal);
             }
         }

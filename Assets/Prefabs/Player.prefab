@@ -522,18 +522,19 @@ MonoBehaviour:
   m_rb: {fileID: 5279017762473815532}
   m_col: {fileID: 276812999829083971}
   m_camera: {fileID: 0}
-  m_cameraOffset: {x: 0, y: 5.7, z: -3.25}
-  m_cameraEulerRotation: {x: 58, y: 0, z: 0}
+  m_cameraOffset: {x: 0, y: 7, z: -7.25}
+  m_cameraEulerRotation: {x: 45, y: 0, z: 0}
   m_moveSpeed: 5
-  m_wallFlipRaycastMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_wallFlipCastRadius: 0.6
-  m_wallFlipCastMaxDistance: 1.6
   m_maxTurnSpeed: 150
   m_boostSpeed: 10
   m_boostAcceleration: 10
   m_boostDeceleration: 20
+  m_wallFlipRaycastMask:
+    serializedVersion: 2
+    m_Bits: 9
+  m_wallFlipCastRadius: 0.6
+  m_wallFlipCastMaxDistance: 1.6
+  m_collideDisableDuration: 3
   m_drawGizmos: 0
 --- !u!54 &5279017762473815532
 Rigidbody:
@@ -599,6 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Train.Player.FollowerController
   m_player: {fileID: 8809399342217044977}
   m_follower: {fileID: 0}
+  m_col: {fileID: 0}
   m_timestep: 0.0133
 --- !u!114 &2028908664258537994
 MonoBehaviour:
@@ -770,7 +772,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3657119331630880013}
   - component: {fileID: 5531458027980296975}
-  - component: {fileID: 3624255847577860308}
+  - component: {fileID: 907729050774509925}
   m_Layer: 3
   m_Name: Light
   m_TagString: Untagged
@@ -858,7 +860,7 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
---- !u!114 &3624255847577860308
+--- !u!114 &907729050774509925
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -961,6 +963,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8785171779148005858}
     m_Modifications:
+    - target: {fileID: 279355392989623079, guid: 6d05fb742253b6c48a6ed1a9da635e91, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2048914592462233927, guid: 6d05fb742253b6c48a6ed1a9da635e91, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1005,13 +1011,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost Train
       objectReference: {fileID: 0}
+    - target: {fileID: 3754592761668995372, guid: 6d05fb742253b6c48a6ed1a9da635e91, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5285747757146889265, guid: 6d05fb742253b6c48a6ed1a9da635e91, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5285747757146889265, guid: 6d05fb742253b6c48a6ed1a9da635e91, type: 3}
       propertyPath: m_VersionIndex
-      value: 2479
+      value: 3307
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085272492964418475, guid: 6d05fb742253b6c48a6ed1a9da635e91, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8085272492964418475, guid: 6d05fb742253b6c48a6ed1a9da635e91, type: 3}
       propertyPath: m_VersionIndex
-      value: 2229
+      value: 2397
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

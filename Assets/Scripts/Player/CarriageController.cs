@@ -17,15 +17,16 @@ namespace Train.Player
         [Header("Fields")]
         [SerializeField, Min(0f)] private float m_followDistance = 1.3f;
 
-        private readonly List<FollowerController> m_createdCarriages = new();
+        private List<FollowerController> m_createdCarriages = new();
+
+        private void Start()
+        {
+            m_createdCarriages.Add(m_rootFollower);
+        }
 
         [ContextMenu("Add Carriage")]
         public void AddCarriage()
         {
-            // lazy initialiser
-            if (m_createdCarriages.Count == 0)
-                m_createdCarriages.Add(m_rootFollower);
-
             // get reference to previous carriage
             FollowerController prevCarriage = m_createdCarriages[^1];
 
@@ -42,7 +43,15 @@ namespace Train.Player
 
             // set the new carriage as the follower of the previous one and start it
             m_createdCarriages.Add(newCarriage);
-            prevCarriage.Begin(m_player, newCarriage.transform);
+            prevCarriage.Begin(m_player, newCarriage);
+        }
+
+        public void DisableAllCarriages(float disableDuration)
+        {
+            foreach (FollowerController f in m_createdCarriages)
+            {
+                f.OnCollideWithPlayer(disableDuration);
+            }
         }
 
 #if UNITY_EDITOR

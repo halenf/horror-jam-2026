@@ -4636,7 +4636,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2217
+  m_VersionIndex: 2397
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9376,7 +9376,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2467
+  m_VersionIndex: 3307
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9519,7 +9519,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a5decd854265a704b8cc317e278d237f, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: c7048a2b1de4de941afb7fe98c6d0929, type: 2}
+      objectReference: {fileID: 2100000, guid: e86c4d50684a5d940acaf4d92715930d, type: 2}
     - target: {fileID: 919132149155446097, guid: a5decd854265a704b8cc317e278d237f, type: 3}
       propertyPath: m_Name
       value: GhostTrainModel (1)

@@ -14,6 +14,7 @@ namespace Train.Manager
         private RectTransform m_timerTransform;
         [SerializeField] private TextMeshProUGUI m_timerText;
 
+        [SerializeField, Range(0f, 8f)] private float m_sliderUpdateSpeed = 1f;
         [SerializeField] private Color m_timerBaseColour;
         [SerializeField] private Color m_timerFlashColour;
         [SerializeField] private float m_timerFlashingTime = 30f;
@@ -21,8 +22,6 @@ namespace Train.Manager
         [SerializeField] private float m_shakeSize;
 
         private float lerpTime = 0f;
-
-
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Awake()
@@ -40,7 +39,7 @@ namespace Train.Manager
             //short for calculator
             float calc = gameTime / maxGameTime;
 
-            lerpTime = Mathf.Lerp(lerpTime, calc, Time.deltaTime);
+            lerpTime = Mathf.Lerp(lerpTime, calc, Time.deltaTime * m_sliderUpdateSpeed);
 
             m_timer.value = lerpTime;
 

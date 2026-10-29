@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Train.Player.CarriageController
   m_player: {fileID: 0}
-  m_carriagePrefab: {fileID: 3818628164839444732, guid: 61d3dc96fb87fdb42aceda47fa8c078c, type: 3}
   m_rootFollower: {fileID: 0}
-  m_followDistance: 1.3
+  m_carriagePrefab: {fileID: 3818628164839444732, guid: 61d3dc96fb87fdb42aceda47fa8c078c, type: 3}
+  m_followDistance: 1.5

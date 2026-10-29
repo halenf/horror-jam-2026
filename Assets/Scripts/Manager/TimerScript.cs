@@ -8,10 +8,15 @@ namespace Train.Manager
     {
         [Header("References")]
         [SerializeField] private PlayerController m_player;
+        [SerializeField] private CarriageController m_carriages;
 
         [Header("Time Levels")]
-        [SerializeField, Min(0f)] private float m_startTime = 60f;
-        [SerializeField] private float[] m_levelMaxTimes = new float[] { 120f };
+        [SerializeField, Min(0f)] private float m_startTime = 30f;
+        [SerializeField, Min(0f)] private float m_startMaxTime = 45f;
+
+        [Header("Levels")]
+        [SerializeField, Min(0f)] private float m_maxTimePerLevel = 15f;
+        [Tooltip("Once a new level is reached, the duration of time where the timer is paused before the max timer increases.")]
         [SerializeField, Min(0f)] private float m_levelUpSafetyDuration = 5f;
         [SerializeField, Min(1f)] private float m_boostMultiplier = 2f;
 
@@ -25,9 +30,9 @@ namespace Train.Manager
         // If this is true, the timer will not tick down
         private bool m_paused;
 
-        public float GameTime { get => m_currentTime; private set { } }
-        public float MaxGameTime { get => m_levelMaxTimes[m_currentLevel]; private set { } }
-        public float GameTimeMultiplier { get => m_timeExtraMultiplier; private set { } }
+        public float GameTime { get => m_currentTime; }
+        public float MaxGameTime { get => m_currentMaxTime;}
+        public float GameTimeMultiplier { get => m_timeExtraMultiplier; }
 
         public static TimerScript Instance;
         private void Awake()
@@ -38,7 +43,7 @@ namespace Train.Manager
         private void Start()
         {
             m_currentTime = m_startTime;
-            m_currentMaxTime = m_levelMaxTimes[m_currentLevel];
+            m_currentMaxTime = m_startMaxTime;
         }
 
         // Update is called once per frame
@@ -54,12 +59,14 @@ namespace Train.Manager
             // if in safety time
             else if (m_levelUpSafetyCountdown > 0f)
             {
-                m_currentMaxTime += m_levelMaxTimes[m_currentLevel] / m_levelUpSafetyDuration * Time.deltaTime;
-                m_levelUpSafetyCountdown -= Time.deltaTime;
+                m_currentMaxTime += m_maxTimePerLevel / m_levelUpSafetyDuration * Time.deltaTime;
 
+                m_levelUpSafetyCountdown -= Time.deltaTime;
                 if (m_levelUpSafetyCountdown <= 0f)
                 {
-                    m_currentMaxTime = m_levelMaxTimes[m_currentLevel];
+                    // finish Level Up
+                    m_carriages.AddCarriage();
+                    m_currentMaxTime = m_startMaxTime + m_currentLevel * m_maxTimePerLevel;
                     UnpauseTimer();
                 }
             }
@@ -88,12 +95,9 @@ namespace Train.Manager
         {
             if (m_currentTime >= m_currentMaxTime)
             {
-                if (m_currentLevel != m_levelMaxTimes.Length)
-                {
-                    m_currentLevel++;
-                    m_levelUpSafetyCountdown = m_levelUpSafetyDuration;
-                    PauseTimer();
-                }
+                m_currentLevel++;
+                m_levelUpSafetyCountdown = m_levelUpSafetyDuration;
+                PauseTimer();
             }
         }
 
@@ -102,18 +106,20 @@ namespace Train.Manager
         /// </summary>
         /// <param name="timeToAdd">amount of time to add</param>
         /// <param name="capped">should the added time be capped to the current max value</param>
-        public void AddTime(float timeToAdd, bool capped = true)
+        public void AddTime(float timeToAdd)
         {
-            float previousTime = m_currentTime;
-
-            m_currentTime += timeToAdd;
-
-            if (capped)
+            if (!m_paused)
             {
-                m_currentTime = OverHealAdjust(previousTime, m_currentTime);
+                m_currentTime = Mathf.Min(m_currentTime + timeToAdd, m_currentMaxTime);
+                CheckLevelUp();
             }
-
-            CheckLevelUp();
+        }
+        public void LoseTime(float timeToLose)
+        {
+            if (!m_paused)
+            {
+                m_currentTime = Mathf.Max(m_currentTime - timeToLose, 0f);
+            }
         }
 
         public void SetTime(float timeToSet, bool capped = true)

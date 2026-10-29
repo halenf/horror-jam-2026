@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Train.Collectibles.Collectible
   m_rb: {fileID: 7628314187108096346}
   m_anim: {fileID: 0}
-  m_value: 3
+  m_value: 8
   m_maxMoveSpeed: 3.5
   m_minMoveSpeed: 0.75
   m_moveSpeedDecayDuration: 6
