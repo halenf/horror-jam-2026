@@ -22,9 +22,12 @@ namespace Train.Collectibles
         [Tooltip("When the game starts, the initial respawn timer values for each Collectible will be separated by this many seconds.")]
         [SerializeField, Min(0f)] private float m_initialSpawnTimerGap = 1.8f;
         [Header("Spawn Location")]
-        [SerializeField] private Vector3[] m_spawnLocations;
-        [Tooltip("When a Collectible is spawned, a random offset will be applied with a +- range from this Vector on the X and Z axes.")]
-        [SerializeField] private Vector2 m_randomSpawnOffset;
+        [Tooltip("Given a position (x,y) and a size (z,w), an area for collectables to spawn in is made.")]
+        [SerializeField] private Vector4[] m_spawnLocations;
+        [Tooltip("How far off the ground all the spawn locations should be. Moreso for ensuring spawned collectables spawn at the correct levels")]
+        [SerializeField] private float m_spawnHeight;
+        //[Tooltip("When a Collectible is spawned, a random offset will be applied with a +- range from this Vector on the X and Z axes.")]
+        //[SerializeField] private Vector2 m_randomSpawnOffset;
 
         private Collectible[] m_pooledCollectibles;
         private float[] m_respawnTimers;
@@ -147,12 +150,15 @@ namespace Train.Collectibles
 
         private Vector3 GetRandomSpawnLocation()
         {
-            // (Random.value * 2f - 1f) is random value between -1 and 1
-            Vector3 randomOffset = new((Random.value * 2f - 1f) * m_randomSpawnOffset.x, 0, (Random.value * 2f - 1f) * m_randomSpawnOffset.y);
             if (m_spawnLocations.Length == 0)
-                return transform.position + randomOffset;
+                return transform.position;
             else
-                return m_spawnLocations[Random.Range(0, m_spawnLocations.Length)] + randomOffset;
+            {
+                Vector4 selectedSpawn = m_spawnLocations[Random.Range(0, m_spawnLocations.Length)];
+                // (Random.value * 2f - 1f) is random value between -1 and 1
+                Vector3 randomOffset = new(Random.Range(-1f, 1f) * selectedSpawn.z, 0, Random.Range(-1f, 1f) * selectedSpawn.w);
+                return new Vector3(selectedSpawn.x, m_spawnHeight, selectedSpawn.y) + randomOffset;
+            }
         }
 
         private Collectible GetRandomCollectiblePrefab()
@@ -190,9 +196,9 @@ namespace Train.Collectibles
             */
 
             Gizmos.color = Color.cornflowerBlue;
-            foreach (Vector3 pos in m_spawnLocations)
+            foreach (Vector4 pos in m_spawnLocations)
             {
-                Gizmos.DrawCube(pos, new(m_randomSpawnOffset.x, 0, m_randomSpawnOffset.y));
+                Gizmos.DrawCube(new(pos.x, m_spawnHeight, pos.y), new(pos.z, 1, pos.w));
             }
         }
 
