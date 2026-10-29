@@ -170,7 +170,7 @@ CapsuleCollider:
   m_Radius: 0.4
   m_Height: 1.75
   m_Direction: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.54}
 --- !u!95 &414720662180898727
 Animator:
   serializedVersion: 7
@@ -240,6 +240,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d3753a14fe5d76c41a4d2668417577ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7612889258907842468, guid: d3753a14fe5d76c41a4d2668417577ba, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -2876068105851302605, guid: d3753a14fe5d76c41a4d2668417577ba, type: 3}
       propertyPath: m_Layer
@@ -314,6 +318,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c9510d6084c62c14f928ea368994b303, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7612889258907842468, guid: c9510d6084c62c14f928ea368994b303, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -2876068105851302605, guid: c9510d6084c62c14f928ea368994b303, type: 3}
       propertyPath: m_Layer

@@ -27742,7 +27742,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Train.Manager.TimerScript
   m_player: {fileID: 501778803}
   m_startTime: 60
-  m_maxTime: 120
+  m_levelMaxTimes:
+  - 120
+  m_levelUpSafetyDuration: 5
   m_boostMultiplier: 2
 --- !u!4 &1206852243
 Transform:
@@ -45815,7 +45817,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 3097863468497011799, guid: 6b453a34890bec148beb196982d92888, type: 3}
       propertyPath: m_LocalPosition.z
@@ -45853,10 +45855,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7688969982291305130, guid: 6b453a34890bec148beb196982d92888, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8809399342217044977, guid: 6b453a34890bec148beb196982d92888, type: 3}
       propertyPath: m_camera
       value: 
@@ -45880,7 +45878,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 2285070447734911563}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 938271f1972add54cadebbfdb7642933, type: 3}
   m_Name: 
