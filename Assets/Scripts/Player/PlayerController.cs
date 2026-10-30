@@ -200,6 +200,6 @@ namespace Train.Player
             Handles.DrawWireDisc(p2 + castOffset, Vector3.right, m_wallFlipCastRadius);
             Handles.DrawWireDisc(p2 + castOffset, Vector3.forward, m_wallFlipCastRadius);
         }
-    }
 #endif
+    }
 }
