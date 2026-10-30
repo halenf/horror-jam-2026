@@ -98,17 +98,6 @@
                     "action": "Horn",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "839e2bb1-5825-42d5-92e7-ad270fb0f93c",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Debug Add Carriage",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         }

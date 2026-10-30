@@ -62,7 +62,7 @@ MonoBehaviour:
   m_respawnTimerUpper: 8
   m_initialSpawnTimerGap: 1.8
   m_prewarmedSpawns: 50
-  m_spawnHeight: 0
+  m_spawnHeight: 0.5
   m_spawnLocations:
   - {x: 17, y: 0, z: 17, w: 0}
   - {x: -17, y: 0, z: 17, w: 0}

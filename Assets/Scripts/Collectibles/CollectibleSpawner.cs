@@ -170,7 +170,7 @@ namespace Train.Collectibles
             {
                 Vector4 selectedSpawn = m_spawnLocations[Random.Range(0, m_spawnLocations.Length)];
                 // (Random.value * 2f - 1f) is random value between -1 and 1
-                Vector3 randomOffset = new(Random.Range(-1f, 1f) * selectedSpawn.z, 0, Random.Range(-1f, 1f) * selectedSpawn.w);
+                Vector3 randomOffset = new(Random.Range(-1f, 1f) * selectedSpawn.z, 0f, Random.Range(-1f, 1f) * selectedSpawn.w);
                 return new Vector3(selectedSpawn.x, m_spawnHeight, selectedSpawn.y) + randomOffset;
             }
         }

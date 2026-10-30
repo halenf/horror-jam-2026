@@ -46,11 +46,19 @@ namespace Train.Player
             prevCarriage.Begin(m_player, newCarriage);
         }
 
-        public void DisableAllCarriages(float disableDuration)
+        public void DisableAllCollision(float disableDuration)
         {
             foreach (FollowerController f in m_createdCarriages)
             {
                 f.OnCollideWithPlayer(disableDuration);
+            }
+        }
+
+        public void DisableAllObjects()
+        {
+            foreach (FollowerController f in m_createdCarriages)
+            {
+                f.gameObject.SetActive(false);
             }
         }
 

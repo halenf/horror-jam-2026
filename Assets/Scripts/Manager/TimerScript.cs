@@ -21,6 +21,10 @@ namespace Train.Manager
         [SerializeField, Min(0f)] private float m_levelUpSafetyDuration = 5f;
         [SerializeField, Min(1f)] private float m_boostMultiplier = 2f;
 
+        [Header("Game Over")]
+        [Tooltip("The length of time you must be at 0 time left for the game to end.")]
+        [SerializeField, Min(0f)] private float m_deathGracePeriodDuration = 2.5f;
+
         private int m_currentLevel = 0;
         private float m_currentTime;
         private float m_currentMaxTime;
@@ -31,9 +35,12 @@ namespace Train.Manager
         // If this is true, the timer will not tick down
         private bool m_paused;
 
+        private float m_deathGracePeriodCountdown;
+
         public float GameTime { get => m_currentTime; }
         public float MaxGameTime { get => m_currentMaxTime;}
         public float GameTimeMultiplier { get => m_timeExtraMultiplier; }
+        public bool GameIsEnding => m_deathGracePeriodCountdown > 0f;
 
         public static TimerScript Instance;
         private void Awake()
@@ -53,14 +60,35 @@ namespace Train.Manager
             // if not paused
             if (!m_paused)
             {
-                float boost = (m_isBoosting) ? m_boostMultiplier : 1f;
-
-                m_currentTime -= Time.deltaTime * boost * m_timeExtraMultiplier;
-
-                if(m_currentTime <= 0)
+                // if player has no time left and grace period is counting down
+                if (GameIsEnding)
                 {
-                    StartCoroutine(m_player.OnGameEnd());
-                    FindAnyObjectByType<UIScript>().OnGameOver();
+                    m_deathGracePeriodCountdown -= Time.deltaTime;
+
+                    // if grace period ends, end the game
+                    if (m_deathGracePeriodCountdown <= 0)
+                    {
+                        m_UI.OnGameOver();
+                        m_player.OnGameEnd();
+                        PauseTimer();
+                    }
+                }
+                else
+                {
+                    float boost = m_isBoosting ? m_boostMultiplier : 1f;
+
+                    m_currentTime -= Time.deltaTime * boost * m_timeExtraMultiplier;
+                    
+                    // if timer has reached 0
+                    if (m_currentTime <= 0f)
+                    {
+                        m_currentTime = 0f;
+                        m_deathGracePeriodCountdown = m_deathGracePeriodDuration;
+                        m_player.StartSlowingDown(m_deathGracePeriodDuration);
+
+                        //StartCoroutine(m_player.OnGameEnd());
+                        //FindAnyObjectByType<UIScript>().OnGameOver();
+                    }
                 }
             }
             // if in safety time
@@ -74,6 +102,7 @@ namespace Train.Manager
                     // finish Level Up
                     m_carriages.AddCarriage();
                     m_UI.AddCarraige();
+                    m_UI.StopRainbow();
                     m_currentMaxTime = m_startMaxTime + m_currentLevel * m_maxTimePerLevel;
                     UnpauseTimer();
                 }
@@ -103,6 +132,7 @@ namespace Train.Manager
         {
             if (m_currentTime >= m_currentMaxTime)
             {
+                m_UI.StartRainbow(m_levelUpSafetyDuration);
                 m_currentLevel++;
                 m_levelUpSafetyCountdown = m_levelUpSafetyDuration;
                 PauseTimer();
@@ -118,6 +148,13 @@ namespace Train.Manager
         {
             if (!m_paused)
             {
+                // if the player gains time while they are in the grace period, then stop the Game Over
+                if (GameIsEnding)
+                {
+                    m_deathGracePeriodCountdown = 0f;
+                    m_player.StopSlowingDown();
+                }
+
                 m_currentTime = Mathf.Min(m_currentTime + timeToAdd, m_currentMaxTime);
                 CheckLevelUp();
             }

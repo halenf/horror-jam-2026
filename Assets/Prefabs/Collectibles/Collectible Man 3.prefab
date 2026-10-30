@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6095612468026764859, guid: 749dc3037e52a49498ae8cb2839383ca, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: f0a62556fb0e8d84ab6cb0a3ddbdfe36, type: 3}
     - target: {fileID: 7469536991688672983, guid: 749dc3037e52a49498ae8cb2839383ca, type: 3}
       propertyPath: m_Name
       value: Collectible Man 3

@@ -19,6 +19,7 @@ namespace Train.Collectibles
         [Header("References")]
         [SerializeField] protected Rigidbody m_rb;
         [SerializeField] protected Animator m_anim;
+        [SerializeField] protected AudioSource m_audioSource;
 
         [Header("Timer")]
         [SerializeField] protected float m_value = 3f;
@@ -108,6 +109,13 @@ namespace Train.Collectibles
                 m_stateTimer = 0f;
                 m_collectDelay = delay;
                 m_beingEatenTarget = target;
+
+                // play sound
+                if (m_audioSource != null)
+                {
+                    m_audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.08f);
+                    m_audioSource.Play();
+                }
 
                 if (m_anim != null)
                 {

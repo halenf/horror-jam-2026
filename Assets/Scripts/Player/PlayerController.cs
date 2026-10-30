@@ -40,8 +40,10 @@ namespace Train.Player
         [SerializeField, Min(0f)] private float m_wallFlipCastMaxDistance = 3f;
         [SerializeField] private LayerMask m_wallFlipRaycastMask;
 
-        [Header("Death VFX")]
+        [Header("Game Over")]
         [SerializeField] private ParticleSystem m_deathVFX;
+        [Tooltip("The deceleration the player experiences while they are in the grace period before they Game Over.")]
+        [SerializeField, Min(0f)] private float m_gracePeriodDeceleration = 6f;
 
         // movement
         private Plane m_playerLevel;
@@ -51,6 +53,9 @@ namespace Train.Player
 
         // boosting
         private bool m_isBoosting = false;
+
+        // game over
+        private float m_gracePeriodCountdown;
 
         // movement properties
         public float CurrentSpeed => m_rb.linearVelocity.magnitude;
@@ -75,33 +80,10 @@ namespace Train.Player
 
         private void FixedUpdate()
         {
-            // get intersect of mouse pos and y = 0
-            Ray ray = m_camera.ScreenPointToRay(m_mousePos);
-            if (m_playerLevel.Raycast(ray, out float enter))
-            {
-                m_targetPos = ray.GetPoint(enter);
-            }
-
-            // get target direction
-            Vector3 dirToTarget = (m_targetPos - m_rb.position).normalized;
-
-            // Rotate with max turn speed
-            if (dirToTarget != Vector3.zero)
-                transform.rotation = Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirToTarget), m_maxTurnSpeed * Time.fixedDeltaTime);
-
-            // move in forward direction
-            if (m_isBoosting)
-            {
-                m_currentSpeed = Mathf.Min(m_currentSpeed + m_boostAcceleration * Time.fixedDeltaTime, m_boostSpeed);
-            }
-            else
-            {
-                m_currentSpeed = Mathf.Max(m_currentSpeed - m_boostDeceleration * Time.fixedDeltaTime, m_moveSpeed);
-            }
-            Vector3 velocity = m_currentSpeed * transform.forward;
-            m_rb.linearVelocity = velocity;
+            UpdateMovement();
         }
 
+        #region Input
         public void OnMouseMove(InputAction.CallbackContext context)
         {
             m_mousePos = context.ReadValue<Vector2>();
@@ -120,12 +102,54 @@ namespace Train.Player
                 OnEndBoosting.Invoke();
             }
         }
+        #endregion
+
+        #region Movement
+        private void UpdateMovement()
+        {
+            // get intersect of mouse pos and y = 0
+            Ray ray = m_camera.ScreenPointToRay(m_mousePos);
+            if (m_playerLevel.Raycast(ray, out float enter))
+            {
+                m_targetPos = ray.GetPoint(enter);
+            }
+
+            // get target direction
+            Vector3 dirToTarget = (m_targetPos - m_rb.position).normalized;
+
+            // Rotate with max turn speed
+            if (dirToTarget != Vector3.zero)
+                transform.rotation = Quaternion.RotateTowards(m_rb.rotation, Quaternion.LookRotation(dirToTarget), m_maxTurnSpeed * Time.fixedDeltaTime);
+
+            // determine speed
+            // if in grace period before game over, slow down to 0
+            if (m_gracePeriodCountdown > 0f)
+            {
+                m_currentSpeed = Mathf.Max(m_currentSpeed - m_gracePeriodDeceleration * Time.fixedDeltaTime, 0f);
+            }
+            // normal game movement speed stuff
+            else
+            {
+                if (m_isBoosting)
+                {
+                    m_currentSpeed = Mathf.Min(m_currentSpeed + m_boostAcceleration * Time.fixedDeltaTime, m_boostSpeed);
+                }
+                else
+                {
+                    m_currentSpeed = Mathf.Max(m_currentSpeed - m_boostDeceleration * Time.fixedDeltaTime, m_moveSpeed);
+                }
+            }
+
+            // move in forward direction
+            Vector3 velocity = m_currentSpeed * transform.forward;
+            m_rb.linearVelocity = velocity;
+        }
 
         /// <summary>
         /// Flip direction based on surface normal when hitting object.
         /// </summary>
         /// <param name="collision"></param>
-        private void OnCollisionStay(Collision collision) 
+        private void OnCollisionStay(Collision collision)
         {
             // use raycast to get surface normal.
             // use raycast to check for smaller objects, OR
@@ -148,7 +172,7 @@ namespace Train.Player
             void Reflect(Vector3 normal)
             {
                 // disable all carriages for a few seconds
-                m_carriages.DisableAllCarriages(m_collideDisableDuration);
+                m_carriages.DisableAllCollision(m_collideDisableDuration);
 
                 // lose time
                 TimerScript.Instance.LoseTime(m_timeLossOnFlip);
@@ -157,15 +181,25 @@ namespace Train.Player
                 transform.forward = Vector3.Reflect(transform.forward, normal);
             }
         }
+        #endregion
 
-        public IEnumerator OnGameEnd()
+        #region Game Over
+        public void StartSlowingDown(float gracePeriodDuration)
         {
-            m_deathVFX.Play();
-            yield return new WaitForEndOfFrame();
-            yield return m_deathVFX.isPlaying != true;
-            gameObject.SetActive(false);
-            
+            m_gracePeriodCountdown = gracePeriodDuration;
         }
+        public void StopSlowingDown()
+        {
+            m_gracePeriodCountdown = 0f;
+        }
+
+        public void OnGameEnd()
+        {
+            Instantiate(m_deathVFX, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
+            m_carriages.DisableAllObjects();
+        }
+        #endregion
 
 #if UNITY_EDITOR
         [Header("Editor-Only")]

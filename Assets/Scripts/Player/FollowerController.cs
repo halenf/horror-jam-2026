@@ -15,10 +15,11 @@ namespace Train.Player
         [SerializeField, Min(0f)] private float m_timestep = 0.0133f;
 
         private readonly List<Vector3> m_waypoints = new();
-        private List<Vector3> m_forwards = new();
 
         private float m_timer;
         private float m_disabledCountdown;
+
+        private Vector3 m_lastPosition;
 
         private void Update()
         {
@@ -27,10 +28,15 @@ namespace Train.Player
 
             // update pos and forward
             float moveSpeed = m_player.CurrentSpeed * Time.deltaTime;
-            m_follower.transform.position = Vector3.MoveTowards(m_follower.transform.position, m_waypoints[0], moveSpeed);
-            float turnSpeed = m_player.MaxTurnSpeed * Time.deltaTime;
-            m_follower.transform.forward = Vector3.RotateTowards(m_follower.transform.forward, m_forwards[0], turnSpeed * Mathf.Deg2Rad * 2f, 0f);
-            // m_follower.rotation = Quaternion.FromToRotation( Quaternion.RotateTowards(m_follower.rotation, Quaternion.LookRotation(m_forwards[0]), turnSpeed);
+            Vector3 currentPos = m_follower.transform.position;
+            m_follower.transform.position = Vector3.MoveTowards(currentPos, m_waypoints[0], moveSpeed);
+
+            // only update forward is position is different, otherwise it snaps to grid-aligned
+            if (m_lastPosition != currentPos)
+            {
+                m_follower.transform.forward = (currentPos - m_lastPosition).normalized;
+                m_lastPosition = currentPos;
+            }
 
             // do collider disabled timer
             if (m_disabledCountdown > 0f)
@@ -62,14 +68,14 @@ namespace Train.Player
                 m_waypoints.Add(current);
             }
 
+            // set initial position for forward
+            m_lastPosition = start;
+
             // in case position matches
             if (m_waypoints.Count == 0)
             {
                 m_waypoints.Add(current);
             }
-
-            // set up forwards
-            m_forwards = Enumerable.Repeat(transform.forward, m_waypoints.Count).ToList();
         }
 
         private void IncrementTimer(float multiplier)
@@ -88,10 +94,6 @@ namespace Train.Player
             // add new one, remove old one
             m_waypoints.Add(transform.position);
             m_waypoints.RemoveAt(0);
-
-            // add new one, remove old one
-            m_forwards.Add(transform.forward);
-            m_forwards.RemoveAt(0);
         }
 
         public void OnCollideWithPlayer(float disableDuration)

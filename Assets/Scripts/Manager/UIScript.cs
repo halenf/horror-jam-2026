@@ -9,31 +9,40 @@ namespace Train.Manager
     public class UIScript : MonoBehaviour
     {
         public static UIScript Instance;
-
+        [Header("References")]
         [SerializeField] private Slider m_timer;
-        private RectTransform m_timerTransform;
         [SerializeField] private TextMeshProUGUI m_timerText;
         [SerializeField] private GameObject m_gameOverUI;
+        [SerializeField] private Image m_fill;
 
-        [SerializeField, Range(0f, 8f)] private float m_sliderUpdateSpeed = 1f;
+        [Header("Flashing Text")]
         [SerializeField] private Color m_timerTextBaseColour;
         [SerializeField] private Color m_timerTextFlashColour;
         [SerializeField] private float m_timerTextFlashingTime = 30f;
         private float m_timerFlashCooldown = 0f;
         [SerializeField] private float m_shakeSize;
 
+        [Header("Health Bar")]
+        [SerializeField, Range(0f, 8f)] private float m_sliderUpdateSpeed = 1f;
         [SerializeField] private Gradient m_healthGradient;
-        [SerializeField] private Image m_fill;
+        [SerializeField] private Gradient m_rainbowGradient;
+        [SerializeField, Min(0f)] private float m_carriageSizeConstant; //manual calculation cause I can't be bothered doing math
 
-        [SerializeField] private float m_carriageSizeConstant; //manual calculation cause I can't be bothered doing math
-
-        private float lerpTime = 0f;
+        private RectTransform m_timerTransform;
+        private float m_lerpTime = 0f;
+        private float m_gayDuration;
+        private float m_gayCountdown;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Awake()
         {
             Instance = this;
             m_timerTransform = (RectTransform)m_timer.transform;
+        }
+
+        private void Start()
+        {
+            m_gameOverUI.gameObject.SetActive(false);
         }
 
         // Update is called once per frame
@@ -45,9 +54,9 @@ namespace Train.Manager
             //short for calculator
             float calc = gameTime / maxGameTime;
 
-            lerpTime = Mathf.Lerp(lerpTime, calc, Time.deltaTime * m_sliderUpdateSpeed);
+            m_lerpTime = Mathf.Lerp(m_lerpTime, calc, Time.deltaTime * m_sliderUpdateSpeed);
 
-            m_timer.value = lerpTime;
+            m_timer.value = m_lerpTime;
 
             //this shit
             var ts = TimeSpan.FromSeconds(gameTime);
@@ -72,15 +81,36 @@ namespace Train.Manager
 
             m_timerText.color = Color.Lerp(m_timerText.color, m_timerTextBaseColour, Time.deltaTime * 2f);
 
-            Color mixedColor = m_healthGradient.Evaluate(calc);
+            // gay, awesome color (hell yeah)
+            if (m_gayCountdown > 0f)
+            {
+                m_fill.color = m_rainbowGradient.Evaluate(m_gayCountdown / m_gayDuration);
 
-            m_fill.color = mixedColor;
+                m_gayCountdown -= Time.deltaTime;
+            }
+            // normal, straight colour (ew)
+            else
+            {
+                Color mixedColor = m_healthGradient.Evaluate(calc);
+                m_fill.color = mixedColor;
+            }
         }
 
         public void AddCarraige()
         {
             m_timerTransform.sizeDelta = new Vector2(m_timerTransform.sizeDelta.x + m_carriageSizeConstant, m_timerTransform.sizeDelta.y);
         }
+
+        public void StartRainbow(float duration)
+        {
+            m_gayDuration = duration;
+            m_gayCountdown = duration;
+        }
+        public void StopRainbow()
+        {
+            m_gayCountdown = 0f;
+        }
+
         public void OnGameOver()
         {
             m_timer.gameObject.SetActive(false);
