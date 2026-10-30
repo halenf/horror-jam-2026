@@ -9,6 +9,7 @@ namespace Train.Manager
         [Header("References")]
         [SerializeField] private PlayerController m_player;
         [SerializeField] private CarriageController m_carriages;
+        [SerializeField] private UIScript m_UI;
 
         [Header("Time Levels")]
         [SerializeField, Min(0f)] private float m_startTime = 30f;
@@ -72,6 +73,7 @@ namespace Train.Manager
                 {
                     // finish Level Up
                     m_carriages.AddCarriage();
+                    m_UI.AddCarraige();
                     m_currentMaxTime = m_startMaxTime + m_currentLevel * m_maxTimePerLevel;
                     UnpauseTimer();
                 }
