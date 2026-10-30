@@ -21,11 +21,13 @@ namespace Train.Collectibles
         [SerializeField, Min(0f)] private float m_respawnTimerUpper = 3f;
         [Tooltip("When the game starts, the initial respawn timer values for each Collectible will be separated by this many seconds.")]
         [SerializeField, Min(0f)] private float m_initialSpawnTimerGap = 1.8f;
+        [Tooltip("Prespawns a bunch of collectables so the scene doesn't start empty.")]
+        [SerializeField] private int m_prewarmedSpawns = 0;
         [Header("Spawn Location")]
-        [Tooltip("Given a position (x,y) and a size (z,w), an area for collectables to spawn in is made.")]
-        [SerializeField] private Vector4[] m_spawnLocations;
         [Tooltip("How far off the ground all the spawn locations should be. Moreso for ensuring spawned collectables spawn at the correct levels")]
         [SerializeField] private float m_spawnHeight;
+        [Tooltip("Given a position (x,y) and a size (z,w), an area for collectables to spawn in is made.")]
+        [SerializeField] private Vector4[] m_spawnLocations;
         //[Tooltip("When a Collectible is spawned, a random offset will be applied with a +- range from this Vector on the X and Z axes.")]
         //[SerializeField] private Vector2 m_randomSpawnOffset;
 
@@ -36,9 +38,19 @@ namespace Train.Collectibles
         private void Start()
         {
             CreatePool();
+            for (int i = m_prewarmedSpawns; i > 0; i--)
+            {
+                var index = AttemptSpawn();
+                if (index >= 0)
+                    m_respawnTimers[index] = 0;
+            }
         }
 
         private void Update()
+        {
+            AttemptSpawn();
+        }
+        private int AttemptSpawn()
         {
             for (int i = 0; i < m_poolSize; i++)
             {
@@ -55,8 +67,10 @@ namespace Train.Collectibles
                     {
                         Spawn(i);
                     }
+                    return i;
                 }
             }
+            return -1;
         }
 
         private void OnDisable()
