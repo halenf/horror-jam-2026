@@ -7,6 +7,8 @@ using UnityEditor;
 
 namespace Train.Player
 {
+    using System.Collections;
+    using System.Threading.Tasks;
     using Manager;
     public class PlayerController : MonoBehaviour
     {
@@ -37,6 +39,9 @@ namespace Train.Player
         [SerializeField, Min(0f)] private float m_wallFlipCastRadius = 0.5f;
         [SerializeField, Min(0f)] private float m_wallFlipCastMaxDistance = 3f;
         [SerializeField] private LayerMask m_wallFlipRaycastMask;
+
+        [Header("Death VFX")]
+        [SerializeField] private ParticleSystem m_deathVFX;
 
         // movement
         private Plane m_playerLevel;
@@ -151,6 +156,15 @@ namespace Train.Player
                 // flip direction
                 transform.forward = Vector3.Reflect(transform.forward, normal);
             }
+        }
+
+        public IEnumerator OnGameEnd()
+        {
+            m_deathVFX.Play();
+            yield return new WaitForEndOfFrame();
+            yield return m_deathVFX.isPlaying != true;
+            gameObject.SetActive(false);
+            
         }
 
 #if UNITY_EDITOR

@@ -13,6 +13,7 @@ namespace Train.Manager
         [SerializeField] private Slider m_timer;
         private RectTransform m_timerTransform;
         [SerializeField] private TextMeshProUGUI m_timerText;
+        [SerializeField] private GameObject m_gameOverUI;
 
         [SerializeField, Range(0f, 8f)] private float m_sliderUpdateSpeed = 1f;
         [SerializeField] private Color m_timerBaseColour;
@@ -65,6 +66,11 @@ namespace Train.Manager
             }
 
             m_timerText.color = Color.Lerp(m_timerText.color, m_timerBaseColour, Time.deltaTime * 2f);
+        }
+        public void OnGameOver()
+        {
+            m_timer.gameObject.SetActive(false);
+            m_gameOverUI.SetActive(true);
         }
     }
 }

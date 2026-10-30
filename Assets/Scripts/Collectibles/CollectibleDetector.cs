@@ -9,6 +9,7 @@ namespace Train.Collectibles
         [Header("References")]
         [SerializeField] private Animator m_teethAnimator;
         [SerializeField] private ParticleSystem m_goreParticleSystemPrefab;
+        [SerializeField] private AudioSource m_eatingAudioSource;
 
         [Header("Collectibles")]
         [SerializeField, Min(0f)] private float m_collectDelay;
@@ -36,6 +37,7 @@ namespace Train.Collectibles
             {
                 // begin eating
                 collectible.BeginCollect(m_collectDelay, m_teethAnimator.transform);
+                m_eatingAudioSource.Play();
                 m_teethAnimator.Play("Eat");
             }
         }

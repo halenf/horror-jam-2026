@@ -55,6 +55,12 @@ namespace Train.Manager
                 float boost = (m_isBoosting) ? m_boostMultiplier : 1f;
 
                 m_currentTime -= Time.deltaTime * boost * m_timeExtraMultiplier;
+
+                if(m_currentTime <= 0)
+                {
+                    StartCoroutine(m_player.OnGameEnd());
+                    FindAnyObjectByType<UIScript>().OnGameOver();
+                }
             }
             // if in safety time
             else if (m_levelUpSafetyCountdown > 0f)
