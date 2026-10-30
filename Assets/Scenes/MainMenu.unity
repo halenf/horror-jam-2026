@@ -507,7 +507,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: e617103542be99d4ca04ffffd483ccd0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.461
+  m_Volume: 0.39
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e836dbd186cd7c4fb754f1dbdf20dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenus
-  GameSceneID: 0
+  GameSceneID: 1
 --- !u!1 &417388345
 GameObject:
   m_ObjectHideFlags: 0
